@@ -41,35 +41,74 @@
       #messages li:nth-child(odd) {
         background: #eee;
       }
+      #message-area {
+        display: none;
+      }
+      #userForm {
+        background: #000;
+        padding: 3px;
+        position: fixed;
+        bottom: 0;
+        width: 50%;
+        margin: 30% auto; /* Will not center vertically and won't work in IE6/7. */
+        left: 0;
+        right: 0;
+        color: white;
+      }
     </style>
   </head>
   <body>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
+    <div id="user-area">
+      <form action="" id="userForm">
+        <label>Enter username:</label>
+        <input
+          autocomplete="off"
+          placeholder="Username"
+          id="username"
+        /><button>
+          Send
+        </button>
+      </form>
+    </div>
+
+    <div id="message-area">
+      <ul id="messages"></ul>
+      <form action="">
+        <input id="m" autocomplete="off" /><button>Send</button>
+      </form>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
       $(function () {
-        var nickName = prompt("Nickname");
         var socket = io();
+        var $userForm = $("userForm");
+        var $userArea = $("user-area");
+        var $messageArea = $("message-area");
+        var $username = $("username");
+
+        //username login
+        $userForm.submit(function (e) {
+          e.preventDefault();
+          $username.val();
+        });
+
+        //for messages
         $("form").submit(function (e) {
           e.preventDefault(); // prevents page reloading
           socket.emit("chat message", $("#m").val());
           $("#m").val("");
           return false;
         });
-        socket.on("chat message", function (msg) {
-          $("#messages").append($("<li>").text(msg));
+
+        socket.on("new message", function (msg) {
+          $("#messages").append($("<li>").text(`${msg.data}`));
         });
         socket.on("connected", function (msg) {
-          console.log(nickName, "<---------what is this?");
-          // $("#messages").append($("<li>").text(msg));
-          $("#messages").append($("<li>").text(`${nickName} ${msg}`));
+          $("#messages").append($("<li>").text(`${msg}`));
         });
         socket.on("disconnected", function (msg) {
-          $("#messages").append($("<li>").text(msg));
+          $("#messages").append($("<li>").text(`${msg}`));
         });
       });
     </script>

@@ -7,20 +7,17 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
   io.emit("connected", "has connected");
 
   socket.on("disconnect", (disconnect) => {
-    console.log("user disconnected");
-    io.emit("disconnected", "user just left");
+    console.log("disconnected");
+    io.emit("disconnected", "just left");
+  });
+
+  socket.on("chat message", (msg) => {
+    io.emit("new message", { data: msg });
   });
 }); // I listen on the connection event for incoming sockets and log it to the console.
-
-io.on("connection", (socket) => {
-  socket.on("chat message", (msg) => {
-    io.emit("chat message", msg);
-  });
-});
 
 http.listen(5000, () => {
   console.log("listening on *:5000");
