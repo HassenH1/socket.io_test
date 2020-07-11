@@ -52,6 +52,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
       $(function () {
+        var nickName = prompt("Nickname");
         var socket = io();
         $("form").submit(function (e) {
           e.preventDefault(); // prevents page reloading
@@ -63,7 +64,9 @@
           $("#messages").append($("<li>").text(msg));
         });
         socket.on("connected", function (msg) {
-          $("#messages").append($("<li>").text(msg));
+          console.log(nickName, "<---------what is this?");
+          // $("#messages").append($("<li>").text(msg));
+          $("#messages").append($("<li>").text(`${nickName} ${msg}`));
         });
         socket.on("disconnected", function (msg) {
           $("#messages").append($("<li>").text(msg));
