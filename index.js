@@ -17,6 +17,12 @@ io.on("connection", (socket) => {
   socket.on("chat message", (msg) => {
     io.emit("new message", { data: msg });
   });
+
+  socket.on("new user", (data, callback) => {
+    console.log(data, "<-------------data from server?");
+    callback(true);
+    // io.emit();
+  });
 }); // I listen on the connection event for incoming sockets and log it to the console.
 
 http.listen(5000, () => {
