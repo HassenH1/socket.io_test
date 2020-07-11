@@ -12,6 +12,7 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", (disconnect) => {
     console.log("user disconnected");
+    io.emit("disconnected", "user just left");
   });
 }); // I listen on the connection event for incoming sockets and log it to the console.
 

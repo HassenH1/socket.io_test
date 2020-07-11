@@ -65,6 +65,9 @@
         socket.on("connected", function (msg) {
           $("#messages").append($("<li>").text(msg));
         });
+        socket.on("disconnected", function (msg) {
+          $("#messages").append($("<li>").text(msg));
+        });
       });
     </script>
   </body>
