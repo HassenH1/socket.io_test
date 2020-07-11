@@ -8,7 +8,9 @@ app.get("/", (req, res) => {
 
 io.on("connection", (socket) => {
   console.log("a user connected");
-  socket.on("disconnect", () => {
+  io.emit("connected", "user has connected");
+
+  socket.on("disconnect", (disconnect) => {
     console.log("user disconnected");
   });
 }); // I listen on the connection event for incoming sockets and log it to the console.
