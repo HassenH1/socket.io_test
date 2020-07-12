@@ -7,15 +7,15 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
+  io.emit("connected", "A user has Connected");
+
   socket.on("new user", (data, callback) => {
     callback(true);
     socket.username = data;
   });
-  io.emit("connected", `${data} has connected`);
 
   socket.on("disconnect", (disconnect) => {
-    console.log("disconnected");
-    io.emit("disconnected", "just left");
+    io.emit("disconnected", "A user just Left");
   });
 
   socket.on("chat message", (msg) => {
