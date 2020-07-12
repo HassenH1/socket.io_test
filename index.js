@@ -7,7 +7,11 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  io.emit("connected", "has connected");
+  socket.on("new user", (data, callback) => {
+    callback(true);
+    socket.username = data;
+  });
+  io.emit("connected", `${data} has connected`);
 
   socket.on("disconnect", (disconnect) => {
     console.log("disconnected");
@@ -15,13 +19,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("chat message", (msg) => {
-    io.emit("new message", { data: msg });
-  });
-
-  socket.on("new user", (data, callback) => {
-    console.log(data, "<-------------data from server?");
-    callback(true);
-    // io.emit();
+    io.emit("new message", { data: msg, user: socket.username });
   });
 }); // I listen on the connection event for incoming sockets and log it to the console.
 
