@@ -111,6 +111,8 @@
 
     <script>
       $(function () {
+        import io from "socket.io-client";
+
         var socket = io("https://ecstatic-pasteur-b0c66b.netlify.app");
         var $userForm = $("#userForm");
         var $userArea = $("user-area");
