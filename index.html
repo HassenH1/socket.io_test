@@ -104,14 +104,14 @@
         <input id="m" autocomplete="off" /><button>Send</button>
       </form>
     </div>
-    <script src="https://ecstatic-pasteur-b0c66b.netlify.app/socket.io/socket.io.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <!-- <script src="https://ecstatic-pasteur-b0c66b.netlify.app/socket.io/socket.io.js"></script> -->
 
     <script>
       $(function () {
-        var socket = io();
+        var socket = io("https://ecstatic-pasteur-b0c66b.netlify.app");
         var $userForm = $("#userForm");
         var $userArea = $("user-area");
         var $messageArea = $("#message-area");
