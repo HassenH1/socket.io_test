@@ -23,6 +23,6 @@ io.on("connection", (socket) => {
   });
 }); // I listen on the connection event for incoming sockets and log it to the console.
 
-http.listen(80, "0.0.0.0", () => {
+http.listen(8080, "0.0.0.0", () => {
   console.log("listening on *:5000");
 });
