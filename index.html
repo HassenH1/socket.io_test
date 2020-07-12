@@ -111,7 +111,9 @@
 
     <script>
       $(function () {
-        var socket = io.connect("https://ecstatic-pasteur-b0c66b.netlify.app");
+        var socket = io.connect(
+          "https://ecstatic-pasteur-b0c66b.netlify.app:5000"
+        );
         var $userForm = $("#userForm");
         var $userArea = $("user-area");
         var $messageArea = $("#message-area");
