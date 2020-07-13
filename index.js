@@ -2,6 +2,7 @@ const app = require("express")();
 const http = require("http").createServer(app);
 var io = require("socket.io")(http);
 const PORT = process.env.PORT || 8080;
+const users = [];
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
@@ -13,10 +14,12 @@ io.on("connection", (socket) => {
   socket.on("new user", (data, callback) => {
     callback(true);
     socket.username = data;
+    users.push(socket.username);
   });
 
   socket.on("disconnect", (disconnect) => {
     io.emit("disconnected", "A user just Left");
+    users.filter((user) => user !== socket.username);
   });
 
   socket.on("chat message", (msg) => {
