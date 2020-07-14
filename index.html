@@ -150,9 +150,10 @@
         });
 
         //getting users ---might need to fix this logic
-        socket.emit("getting users", function (users) {
-          for (let i = 0; i < users.length; i++) {
-            $onlineForm.append("<li>" + users[i] + "</li");
+        socket.emit("getting users", function (data) {
+          for (let i = 0; i < data.length; i++) {
+            console.log(data[i], "<------------does this actually work?");
+            $onlineForm.append("<li>" + data[i] + "</li");
           }
         });
 
