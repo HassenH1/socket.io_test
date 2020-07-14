@@ -152,9 +152,7 @@
         //getting users ---might need to fix this logic
         socket.emit("getting users", function (users) {
           for (let i = 0; i < users.length; i++) {
-            $onlineForm
-              .append("<li>" + users[i] + "</li")
-              .append('<div id="r' + i + '" class="ansbox"></div>');
+            $onlineForm.append("<li>" + users[i] + "</li");
           }
         });
 

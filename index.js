@@ -17,6 +17,11 @@ io.on("connection", (socket) => {
     users.push(socket.username);
   });
 
+  socket.on("getting users", (users) => {
+    console.log(users, "<--------------what is this?");
+    return (users = users);
+  });
+
   socket.on("disconnect", (disconnect) => {
     io.emit("disconnected", "A user just Left");
     users.filter((user) => user !== socket.username);
