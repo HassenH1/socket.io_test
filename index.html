@@ -57,6 +57,13 @@
         right: 0;
         color: white;
       }
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+      }
+      #online-area {
+        border: 10px solid red;
+      }
       @media screen and (max-width: 480px) {
         #userForm {
           background: orange;
@@ -98,16 +105,19 @@
       </form>
     </div>
 
-    <div id="message-area">
-      <ul id="messages"></ul>
-      <form id="messageForm">
-        <input id="m" autocomplete="off" /><button>Send</button>
-      </form>
+    <div class="wrapper">
+      <div id="message-area">
+        <ul id="messages"></ul>
+        <form id="messageForm">
+          <input id="m" autocomplete="off" /><button>Send</button>
+        </form>
+      </div>
+      <!-- need to finish this part -->
+      <div id="online-area">
+        <ul id="onlineForm"></ul>
+      </div>
     </div>
-    <!-- need to finish this part -->
-    <div id="users-area">
-      <div></div>
-    </div>
+
     <script src="/socket.io/socket.io.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -119,6 +129,7 @@
         var $userArea = $("user-area");
         var $messageArea = $("#message-area");
         var $username = $("#username");
+        var $onlineForm = $("#onlineForm");
 
         //username login
         $("#userForm").submit(function (e) {
@@ -131,6 +142,15 @@
           });
           $username.val("");
           return false;
+        });
+
+        //getting users ---might need to fix this logic
+        socket.emit("getting users", function (users) {
+          for (let i = 0; i < users.length; i++) {
+            $onlineForm
+              .append("<li>" + users[i] + "</li")
+              .append('<div id="r' + i + '" class="ansbox"></div>');
+          }
         });
 
         //for messages
