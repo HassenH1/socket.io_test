@@ -59,10 +59,14 @@
       }
       .wrapper {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-between;
       }
       #online-area {
         border: 10px solid red;
+        height: 96vh;
+        width: 15%;
+        display: none;
       }
       @media screen and (max-width: 480px) {
         #userForm {
@@ -138,6 +142,7 @@
             if (data) {
               $userForm.hide();
               $messageArea.show();
+              $("#online-area").show();
             }
           });
           $username.val("");
